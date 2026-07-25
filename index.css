@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', 'BinanceNova', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: #FCD535;
+  color: #181a20;
+}
+
+/* Focus visibility for a11y */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #FCD535;
+  outline-offset: 2px;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* --- Ring Gallery --- */
+.ring-stage {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  --ring-radius: 230px;
+}
+
+.ring-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: spin-ring 42s linear infinite;
+}
+
+.ring-track.paused {
+  animation-play-state: paused;
+}
+
+@keyframes spin-ring {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.ring-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 132px;
+  height: 168px;
+  margin-top: -84px;
+  margin-left: -66px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+  border: 1px solid #2b3139;
+}
+
+.ring-card > div.counter-rotate {
+  animation: spin-ring-reverse 42s linear infinite;
+  width: 100%;
+  height: 100%;
+}
+
+.ring-track.paused .ring-card > div.counter-rotate {
+  animation-play-state: paused;
+}
+
+@keyframes spin-ring-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+@media (max-width: 767px) {
+  .ring-stage {
+    max-width: 340px;
+    --ring-radius: 122px;
+  }
+  .ring-card {
+    width: 84px;
+    height: 108px;
+    margin-top: -54px;
+    margin-left: -42px;
+  }
+}
+
+.font-num {
+  font-family: 'JetBrains Mono', 'BinancePlex', monospace;
+}
+
+/* Subtle entrance animation for hero content — respects reduced-motion above */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-up-delay {
+  animation: fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
